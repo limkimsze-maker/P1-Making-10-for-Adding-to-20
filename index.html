@@ -25,6 +25,7 @@
       --line:#1f2937;
       --shadow:0 14px 30px rgba(27, 68, 122, .12);
       --radius:26px;
+      --eq-size:34px;
     }
 
     *{ box-sizing:border-box; }
@@ -66,7 +67,7 @@
       align-content:stretch;
       display:grid;
       grid-template-rows:80px 408px 336px 18px;
-      gap:4px;
+      gap:3px;
       overflow:hidden;
       transform-origin:top left;
     }
@@ -117,7 +118,7 @@
       gap:8px;
       flex-wrap:nowrap;
       justify-content:flex-start;
-      width:560px;
+      width:740px;
       max-width:none;
       transform:translateX(-46px);
     }
@@ -167,15 +168,113 @@
     .topCard{
       padding:10px 12px 12px;
       display:grid;
-      grid-template-rows:46px 34px auto;
-      gap:4px;
+      grid-template-rows:46px 50px 34px auto;
+      gap:3px;
       overflow:visible;
+    }
+
+    .studentTry{
+      display:grid;
+      grid-template-columns:auto auto 110px auto auto auto auto auto auto 1fr;
+      align-items:center;
+      gap:8px;
+      padding:4px 8px;
+      border:3px solid #dbe8ff;
+      border-radius:18px;
+      background:linear-gradient(180deg,#ffffff,#f7fbff);
+    }
+
+    .statusPill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:32px;
+      padding:4px 10px;
+      border:3px solid #b9d4ff;
+      border-radius:999px;
+      background:#fff;
+      font-size:12px;
+      font-weight:900;
+      color:#123f7b;
+      white-space:nowrap;
+    }
+
+    .statusPill.streak{
+      border-color:#ffd27a;
+      background:#fff8ea;
+      color:#9a5c00;
+    }
+
+    .statusPill.progress{
+      border-color:#9fe4b0;
+      background:#effcf3;
+      color:#10753a;
+    }
+
+    .tryPrompt,
+    .tryEquation,
+    .feedbackBadge,
+    .answerInput,
+    .studentTry .btn{
+      font-family:inherit;
+    }
+
+    .tryPrompt{
+      font-size:11px;
+      font-weight:900;
+      color:#0f4186;
+      white-space:nowrap;
+    }
+
+    .tryEquation{
+      font-size:18px;
+      font-weight:900;
+      color:#123f7b;
+      white-space:nowrap;
+    }
+
+    .answerInput{
+      width:100%;
+      height:38px;
+      border:3px solid #8eb5ff;
+      border-radius:12px;
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      color:#173a69;
+      background:#fff;
+      outline:none;
+    }
+
+    .answerInput:focus{
+      box-shadow:0 0 0 4px rgba(47,111,237,.12);
+    }
+
+    .feedbackBadge{
+      min-height:24px;
+      padding-left:4px;
+      font-size:11px;
+      font-weight:900;
+      color:#35537f;
+      white-space:nowrap;
+    }
+
+    .feedbackBadge.correct{ color:#148545; }
+    .feedbackBadge.incorrect{ color:#c0392b; }
+    .feedbackBadge.info{ color:#35537f; }
+
+    .controls .btn:disabled,
+    .studentTry .btn:disabled,
+    .answerInput:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+      transform:none !important;
     }
 
     .equationRow{
       display:grid;
       grid-template-columns:1fr auto;
-      gap:4px;
+      gap:3px;
       align-items:center;
     }
 
@@ -187,9 +286,10 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:19px;
+      font-size:38px;
       font-weight:900;
       letter-spacing:.02em;
+      color:#ef4444;
     }
 
     .stepTag{
@@ -209,7 +309,7 @@
     .stepTabs{
       display:grid;
       grid-template-columns:repeat(4,1fr);
-      gap:4px;
+      gap:3px;
     }
 
     .stepTab{
@@ -339,7 +439,7 @@
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:4px;
+      gap:3px;
       padding:0 2px;
       margin-top:42px;
       align-self:center;
@@ -367,10 +467,9 @@
     }
 
     .moveNote{
-      font-size:20px;
-      margin-top:25px;
+      font-size:40px;
       font-weight:900;
-      color:#0f4186;
+      color:#ef4444;
       text-align:center;
       min-height:16px;
       line-height:1.15;
@@ -432,21 +531,21 @@
     }
 
     .bondTop{
-      font-size:40px;
+      font-size:21px;
       font-weight:900;
       fill:#000;
     }
 
     .bondBottom{
-      font-size:40px;
+      font-size:21px;
       font-weight:900;
       fill:#000;
     }
 
     .combineDiagram{
-      width:720px;
+      width:435px;
       max-width:100%;
-      min-height:340px;
+      min-height:188px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -507,7 +606,7 @@
       display:none !important;
       align-items:center;
       justify-content:center;
-      gap:4px;
+      gap:3px;
       flex-wrap:wrap;
     }
 
@@ -519,7 +618,7 @@
       background:#fff;
       padding:4px 10px;
       border-radius:999px;
-      font-size:20px;
+      font-size:16px;
       font-weight:900;
       line-height:1;
     }
@@ -545,7 +644,7 @@
     .practiceRow{
       display:none !important;
       grid-template-columns:repeat(5, 1fr);
-      gap:4px;
+      gap:3px;
     }
 
     .practiceBtn{
@@ -581,6 +680,15 @@
       color:#4e6786;
       opacity:.9;
     }
+    .confettiCanvas{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:30;
+    }
+
   </style>
 </head>
 <body>
@@ -607,6 +715,19 @@
           <div class="equationRow">
             <div class="equationBox" id="equationBox">8 + 3 = ?</div>
             <div class="stepTag" id="stepTag">Step 1</div>
+          </div>
+
+          <div class="studentTry" id="studentTryRow">
+            <div class="tryPrompt">Pupil: solve first.</div>
+            <div class="tryEquation" id="tryEquation">8 + 3 =</div>
+            <input class="answerInput" id="answerInput" type="number" inputmode="numeric" aria-label="Pupil answer" placeholder="Answer" />
+            <button class="btn" id="checkBtn">Check Answer</button>
+            <button class="btn play" id="showDemoBtn">Show Making 10</button>
+            <button class="btn" id="nextQuestionBtn">Next Question ▶</button>
+            <button class="btn" id="resetTryBtn">New Pupil Try</button>
+            <div class="statusPill streak" id="streakBadge">Streak: 0</div>
+            <div class="statusPill progress" id="progressBadge">Question 1 / 10</div>
+            <div class="feedbackBadge info" id="feedbackBadge">Solve it first, then press Check Answer.</div>
           </div>
 
           <div class="teacherTalk" id="teacherTalk"></div>
@@ -658,23 +779,36 @@
         <div class="credit">Designed by Lim Kim Sze © 2026</div>
         <div class="screenHint">Hold Ctrl + scroll to adjust the frame size. Press Ctrl + 0 to reset.</div>
       </main>
+    
+      <canvas id="confettiCanvas" class="confettiCanvas" aria-hidden="true"></canvas>
+      <audio id="correctSound" preload="auto" src="correct.mp3"></audio>
+      <audio id="wrongSound" preload="auto" src="wrong.mp3"></audio>
+
     </div>
   </div>
 
   <script>
-    const examples = [
-      { key: '8+3', a: 8, b: 3 },
-      { key: '8+5', a: 8, b: 5 },
-      { key: '9+4', a: 9, b: 4 },
-      { key: '7+6', a: 7, b: 6 },
-      { key: '6+7', a: 6, b: 7 }
+    const questionPool = [
+      { key: '8+2', a: 8, b: 2 }, { key: '8+3', a: 8, b: 3 }, { key: '8+4', a: 8, b: 4 }, { key: '8+5', a: 8, b: 5 },
+      { key: '8+6', a: 8, b: 6 }, { key: '8+7', a: 8, b: 7 }, { key: '8+8', a: 8, b: 8 }, { key: '8+9', a: 8, b: 9 },
+      { key: '9+1', a: 9, b: 1 }, { key: '9+2', a: 9, b: 2 }, { key: '9+3', a: 9, b: 3 }, { key: '9+4', a: 9, b: 4 },
+      { key: '9+5', a: 9, b: 5 }, { key: '9+6', a: 9, b: 6 }, { key: '9+7', a: 9, b: 7 }, { key: '9+8', a: 9, b: 8 },
+      { key: '7+3', a: 7, b: 3 }, { key: '7+4', a: 7, b: 4 }, { key: '7+5', a: 7, b: 5 }, { key: '7+6', a: 7, b: 6 },
+      { key: '6+4', a: 6, b: 4 }, { key: '6+5', a: 6, b: 5 }, { key: '6+6', a: 6, b: 6 }, { key: '6+7', a: 6, b: 7 },
+      { key: '5+5', a: 5, b: 5 }, { key: '5+6', a: 5, b: 6 }, { key: '5+7', a: 5, b: 7 }, { key: '5+8', a: 5, b: 8 }
     ];
 
+    let examples = [];
     let currentExample = 0;
     let currentStep = 0;
     let playTimer = null;
+    let autoDemoTimer = null;
     let fitScale = 1;
     let userZoom = 1;
+    let tryMode = true;
+    let demoReady = false;
+    let streak = 0;
+    let answeredCorrectly = false;
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
@@ -685,6 +819,79 @@
       (d) => `Now skip count by ${d.toTen} from ${d.bigger} to 10 on the number line.`,
       (d) => `Next, skip count by ${d.remainder} more from 10 to ${d.total}. So ${d.displayA} + ${d.displayB} = ${d.total}.`
     ];
+
+    function totalStepCount(d){
+      return 6 + d.smaller;
+    }
+
+    function teacherTalkFor(d, step){
+      if(step < stepTalk.length) return stepTalk[step](d);
+      if(step === 5) return `Prove it by counting on in ones. Press Next Step to show the first +1 jump.`;
+      const shown = Math.min(step - 5, d.smaller);
+      const target = d.bigger + shown;
+      return `Count on by 1 to prove it. ${shown} jump${shown === 1 ? '' : 's'} of +1 shown, up to ${target}.`;
+    }
+
+    function shuffle(list){
+      const arr = [...list];
+      for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function startNewSet(resetStreak=false){
+      examples = shuffle(questionPool).slice(0, 10);
+      currentExample = 0;
+      if(resetStreak) streak = 0;
+      refreshExampleOptions();
+    }
+
+    function refreshExampleOptions(){
+      exampleSelect.innerHTML = '';
+      examples.forEach((ex, i) => {
+        const op = document.createElement('option');
+        op.value = i;
+        op.textContent = `${i + 1}. ${ex.a} + ${ex.b}`;
+        exampleSelect.appendChild(op);
+      });
+      exampleSelect.value = String(currentExample);
+      updateProgressUI();
+    }
+
+    function updateProgressUI(){
+      const streakBadge = document.getElementById('streakBadge');
+      const progressBadge = document.getElementById('progressBadge');
+      if(streakBadge) streakBadge.textContent = `Streak: ${streak}`;
+      if(progressBadge) progressBadge.textContent = `Question ${currentExample + 1} / ${examples.length || 10}`;
+      const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+      if(nextQuestionBtn){
+        nextQuestionBtn.textContent = currentExample >= (examples.length - 1) ? 'Restart 10 Qs' : 'Next Question ▶';
+      }
+    }
+
+    function goToNextQuestion(){
+      stopPlay();
+      if(currentExample >= examples.length - 1){
+        startNewSet(false);
+      }else{
+        currentExample += 1;
+      }
+      resetToPupilTry();
+    }
+
+    function totalStepCount(d){
+      return 6 + d.smaller;
+    }
+
+    function teacherTalkFor(d, step){
+      if(step < stepTalk.length) return stepTalk[step](d);
+      if(step === 5) return `Prove it by counting on in ones. Press Next Step to show the first +1 jump.`;
+      const shown = Math.min(step - 5, d.smaller);
+      const target = d.bigger + shown;
+      return `Count on by 1 to prove it. ${shown} jump${shown === 1 ? '' : 's'} of +1 shown, up to ${target}.`;
+    }
 
     function getData(index){
       const ex = examples[index];
@@ -709,25 +916,19 @@
 
     const exampleSelect = document.getElementById('exampleSelect');
     const practiceRow = document.getElementById('practiceRow');
+    const answerInput = document.getElementById('answerInput');
+    const checkBtn = document.getElementById('checkBtn');
+    const showDemoBtn = document.getElementById('showDemoBtn');
+    const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+    const resetTryBtn = document.getElementById('resetTryBtn');
+    const feedbackBadge = document.getElementById('feedbackBadge');
+    const correctSound = document.getElementById('correctSound');
+    const wrongSound = document.getElementById('wrongSound');
+    const confettiCanvas = document.getElementById('confettiCanvas');
 
     function setupPickers(){
-      examples.forEach((ex, i) => {
-        const op = document.createElement('option');
-        op.value = i;
-        op.textContent = `${ex.a} + ${ex.b}`;
-        exampleSelect.appendChild(op);
-
-        const btn = document.createElement('button');
-        btn.className = 'practiceBtn';
-        btn.textContent = `${ex.a} + ${ex.b}`;
-        btn.addEventListener('click', () => {
-          currentExample = i;
-          currentStep = 0;
-          stopPlay();
-          render();
-        });
-        practiceRow.appendChild(btn);
-      });
+      practiceRow.innerHTML = '';
+      refreshExampleOptions();
     }
 
     function stopPlay(){
@@ -735,7 +936,152 @@
         clearInterval(playTimer);
         playTimer = null;
       }
+      if(autoDemoTimer){
+        clearTimeout(autoDemoTimer);
+        autoDemoTimer = null;
+      }
       document.getElementById('playBtn').textContent = '▶ Play All Steps';
+    }
+
+    function setFeedback(message, type='info'){
+      feedbackBadge.textContent = message;
+      feedbackBadge.className = `feedbackBadge ${type}`;
+    }
+    function playSound(audioEl){
+      if(!audioEl) return;
+      try{
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        const p = audioEl.play();
+        if(p && typeof p.catch === 'function') p.catch(() => {});
+      }catch(e){}
+    }
+
+    function fireConfetti(){
+      if(!confettiCanvas) return;
+      const rect = confettiCanvas.getBoundingClientRect();
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      confettiCanvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      confettiCanvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      const ctx = confettiCanvas.getContext('2d');
+      if(!ctx) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const pieces = Array.from({length: 140}, () => ({
+        x: rect.width * (0.2 + Math.random() * 0.6),
+        y: 90 + Math.random() * 80,
+        w: 6 + Math.random() * 8,
+        h: 10 + Math.random() * 10,
+        vx: -3 + Math.random() * 6,
+        vy: 1 + Math.random() * 2,
+        g: 0.08 + Math.random() * 0.08,
+        rot: Math.random() * Math.PI * 2,
+        vr: -0.2 + Math.random() * 0.4,
+        color: ['#ef4444','#f59e0b','#facc15','#20b15a','#2f6fed','#a855f7'][Math.floor(Math.random()*6)]
+      }));
+
+      let frame = 0;
+      function tick(){
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.g;
+          p.rot += p.vr;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+          ctx.restore();
+        });
+        frame += 1;
+        if(frame < 90){
+          requestAnimationFrame(tick);
+        } else {
+          ctx.clearRect(0, 0, rect.width, rect.height);
+        }
+      }
+      tick();
+    }
+
+
+    function updateControlLock(){
+      const locked = tryMode;
+      document.getElementById('prevBtn').disabled = locked;
+      document.getElementById('nextBtn').disabled = locked;
+      document.getElementById('playBtn').disabled = locked;
+      showDemoBtn.disabled = !demoReady;
+      if(nextQuestionBtn) nextQuestionBtn.disabled = !answeredCorrectly && tryMode;
+      updateProgressUI();
+    }
+
+    function resetToPupilTry(){
+      stopPlay();
+      try{ correctSound.pause(); correctSound.currentTime = 0; }catch(e){}
+      try{ wrongSound.pause(); wrongSound.currentTime = 0; }catch(e){}
+      tryMode = true;
+      demoReady = false;
+      answeredCorrectly = false;
+      currentStep = 0;
+      answerInput.disabled = false;
+      answerInput.value = '';
+      setFeedback('Solve it first, then press Check Answer.', 'info');
+      updateControlLock();
+      render();
+      answerInput.focus();
+    }
+
+    function startGuidedDemo(autoPlay=false){
+      stopPlay();
+      tryMode = false;
+      demoReady = true;
+      answerInput.disabled = false;
+      updateControlLock();
+      currentStep = 0;
+      render();
+      if(autoPlay){
+        document.getElementById('playBtn').textContent = '❚❚ Stop';
+        playTimer = setInterval(() => {
+          const maxStep = totalStepCount(getData(currentExample)) - 1;
+          currentStep += 1;
+          if(currentStep > maxStep){
+            stopPlay();
+            currentStep = maxStep;
+          }
+          render();
+        }, 2300);
+      }
+    }
+
+    function checkPupilAnswer(){
+      const d = getData(currentExample);
+      const raw = answerInput.value.trim();
+      if(raw === ''){
+        setFeedback('Type an answer first.', 'info');
+        answerInput.focus();
+        return;
+      }
+      const ans = Number(raw);
+      demoReady = true;
+      if(ans === d.total){
+        streak += 1;
+        answeredCorrectly = true;
+        setFeedback('Correct! Teacher can press Next Step or choose the next question.', 'correct');
+        playSound(correctSound);
+        fireConfetti();
+        tryMode = false;
+        currentStep = 0;
+        updateControlLock();
+        render();
+        return;
+      }else{
+        streak = 0;
+        answeredCorrectly = false;
+        setFeedback('Not quite. Press Show Making 10 to watch the demonstration.', 'incorrect');
+        playSound(wrongSound);
+      }
+      updateControlLock();
     }
 
     function applyScale(){
@@ -838,21 +1184,21 @@
     function makeCombineHTML(d, step){
       if(step !== 3 && step !== 4) return '';
       const showFinalTotal = step === 4;
-      const lineEnd = showFinalTotal ? 392 : 330;
+      const lineEnd = showFinalTotal ? 360 : 302;
       return `
-        <svg viewBox="0 0 430 170" aria-label="${d.bigger} and ${d.toTen} make 10, then add ${d.remainder}">
-          <text x="116" y="40" text-anchor="middle" class="bondTop">${d.bigger}</text>
-          <text x="182" y="40" text-anchor="middle" class="bondTop">+</text>
-          <text x="248" y="40" text-anchor="middle" class="bondTop">${d.smaller}</text>
-          <text x="316" y="40" text-anchor="middle" class="bondTop">=</text>
-          ${showFinalTotal ? `<text x="384" y="40" text-anchor="middle" class="bondTop">${d.total}</text>` : ''}
-          <line x1="78" y1="52" x2="${lineEnd}" y2="52" stroke="#000" stroke-width="4"/>
-          <line x1="248" y1="58" x2="198" y2="98" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-          <line x1="248" y1="58" x2="292" y2="98" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-          <text x="190" y="128" text-anchor="middle" class="bondBottom">${d.toTen}</text>
-          <text x="290" y="128" text-anchor="middle" class="bondBottom">${d.remainder}</text>
-          <text x="40" y="118" text-anchor="middle" font-size="60" font-weight="900" fill="#4f7bd9">10</text>
-          <ellipse cx="141" cy="84" rx="46" ry="84" fill="none" stroke="#4f7bd9" stroke-width="4" stroke-dasharray="12 8" transform="rotate(-27 156 84)"/>
+        <svg viewBox="0 0 400 150" aria-label="${d.bigger} and ${d.toTen} make 10, then add ${d.remainder}">
+          <text x="112" y="34" text-anchor="middle" class="bondTop">${d.bigger}</text>
+          <text x="168" y="34" text-anchor="middle" class="bondTop">+</text>
+          <text x="222" y="34" text-anchor="middle" class="bondTop">${d.smaller}</text>
+          <text x="276" y="34" text-anchor="middle" class="bondTop">=</text>
+          ${showFinalTotal ? `<text x="336" y="34" text-anchor="middle" class="bondTop">${d.total}</text>` : ''}
+          <line x1="86" y1="46" x2="${lineEnd}" y2="46" stroke="#000" stroke-width="4"/>
+          <line x1="222" y1="54" x2="183" y2="88" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <line x1="222" y1="54" x2="258" y2="88" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <text x="178" y="116" text-anchor="middle" class="bondBottom">${d.toTen}</text>
+          <text x="262" y="116" text-anchor="middle" class="bondBottom">${d.remainder}</text>
+          <text x="44" y="106" text-anchor="middle" font-size="44" font-weight="900" fill="#4f7bd9">10</text>
+          <ellipse cx="140" cy="82" rx="38" ry="74" fill="none" stroke="#4f7bd9" stroke-width="4" stroke-dasharray="12 8" transform="rotate(-27 140 82)"/>
         </svg>
       `;
     }
@@ -873,7 +1219,15 @@
       if(step === 3){
         return `Start at ${d.bigger}. Skip count by ${d.toTen} to reach 10.`;
       }
-      return `Start at ${d.bigger}. Skip count by ${d.toTen} to reach 10, then skip count by ${d.remainder} more to reach ${d.total}. So ${d.displayA} + ${d.displayB} = ${d.total}.`;
+      if(step === 4){
+        return `Start at ${d.bigger}. Skip count by ${d.toTen} to reach 10, then skip count by ${d.remainder} more to reach ${d.total}. So ${d.displayA} + ${d.displayB} = ${d.total}.`;
+      }
+      if(step === 5){
+        return `Now begin the proof by counting on in ones. The line is waiting at ${d.bigger}. Press Next Step to show the first +1 jump.`;
+      }
+      const shown = Math.min(step - 5, d.smaller);
+      const target = d.bigger + shown;
+      return `Click Next to count on by 1. ${shown} jump${shown === 1 ? '' : 's'} of +1 ${shown === 1 ? 'is' : 'are'} shown so far, reaching ${target}.`;
     }
 
     function getCellsRect(frameEl, indexes){
@@ -967,28 +1321,85 @@
       let arcs = '';
       if(step === 3){
         arcs += jumpArc(xFor(d.bigger), xFor(10), 64, '#111111', `+${d.toTen}`, 66);
-      }else if(step >= 4){
+      }else if(step === 4){
         arcs += jumpArc(xFor(d.bigger), xFor(10), 64, '#111111', `+${d.toTen}`, 66);
         arcs += jumpArc(xFor(10), xFor(d.total), 64, '#111111', `+${d.remainder}`, 66);
+      }else if(step >= 6){
+        const shown = Math.min(step - 5, d.smaller);
+        for(let i = 0; i < shown; i++){
+          const from = d.bigger + i;
+          const to = from + 1;
+          const x1 = xFor(from);
+          const x2 = xFor(to);
+          const rise = (i % 2 === 0) ? 54 : 66;
+          const labelY = (i % 2 === 0) ? 46 : 34;
+          arcs += jumpArc(x1, x2, rise, '#111111', '+1', labelY);
+        }
       }
 
-      let markers = `
-        <circle cx="${xFor(d.bigger)}" cy="${y}" r="12" fill="#ef4444" stroke="#912727" stroke-width="2"></circle>
-        <circle cx="${xFor(10)}" cy="${y}" r="12" fill="#eab308" stroke="#9a7408" stroke-width="2"></circle>
-        ${step >= 4 ? `<circle cx="${xFor(d.total)}" cy="${y}" r="12" fill="#20b15a" stroke="#13763b" stroke-width="2"></circle>` : ''}
-      `;
+      let markers = '';
+      let startLabel = '';
+      let tenLabel = '';
+      let totalLabel = '';
 
-      const startLabel = `<text x="${xFor(d.bigger)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#ef4444">Start</text>`;
-      const tenLabel = `<text x="${xFor(10)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b27700">Make 10</text>`;
-      const totalLabel = step >= 4 ? `<text x="${xFor(d.total)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#148545">Total</text>` : '';
+      if(step >= 5){
+        const shown = step === 5 ? 0 : Math.min(step - 5, d.smaller);
+        const current = d.bigger + shown;
+
+        markers += `<circle cx="${xFor(d.bigger)}" cy="${y}" r="12" fill="#ef4444" stroke="#912727" stroke-width="2"></circle>`;
+        startLabel = `<text x="${xFor(d.bigger)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#ef4444">Start</text>`;
+
+        if(current > d.bigger){
+          if(current === 10){
+            markers += `<circle cx="${xFor(10)}" cy="${y}" r="12" fill="#eab308" stroke="#9a7408" stroke-width="2"></circle>`;
+            tenLabel = `<text x="${xFor(10)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b27700">Now</text>`;
+          } else {
+            if(current > 10){
+              markers += `<circle cx="${xFor(10)}" cy="${y}" r="12" fill="#eab308" stroke="#9a7408" stroke-width="2"></circle>`;
+              tenLabel = `<text x="${xFor(10)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b27700">10</text>`;
+            }
+            markers += `<circle cx="${xFor(current)}" cy="${y}" r="12" fill="#20b15a" stroke="#13763b" stroke-width="2"></circle>`;
+            totalLabel = `<text x="${xFor(current)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#148545">Now</text>`;
+          }
+        }
+      } else {
+        markers = `
+          <circle cx="${xFor(d.bigger)}" cy="${y}" r="12" fill="#ef4444" stroke="#912727" stroke-width="2"></circle>
+          <circle cx="${xFor(10)}" cy="${y}" r="12" fill="#eab308" stroke="#9a7408" stroke-width="2"></circle>
+          ${step >= 4 ? `<circle cx="${xFor(d.total)}" cy="${y}" r="12" fill="#20b15a" stroke="#13763b" stroke-width="2"></circle>` : ''}
+        `;
+        startLabel = `<text x="${xFor(d.bigger)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#ef4444">Start</text>`;
+        tenLabel = `<text x="${xFor(10)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b27700">Make 10</text>`;
+        totalLabel = step >= 4 ? `<text x="${xFor(d.total)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#148545">Total</text>` : '';
+      }
 
       let ticks = '';
       let boxes = '';
+      const proofCurrent = step >= 5 ? Math.min(d.bigger + Math.max(0, Math.min(step - 5, d.smaller)), d.total) : null;
+
       for(let n = 1; n <= 20; n++){
         const x = xFor(n);
         ticks += `<line x1="${x}" y1="${y-14}" x2="${x}" y2="${y+12}" stroke="#233145" stroke-width="3"></line>`;
-        const fill = n === d.bigger ? '#fee2e2' : n === 10 ? '#fef3c7' : (step >= 4 && n === d.total) ? '#dcfce7' : '#eff6ff';
-        const stroke = n === d.bigger ? '#f87171' : n === 10 ? '#facc15' : (step >= 4 && n === d.total) ? '#4ade80' : '#9fbef8';
+
+        let fill = '#eff6ff';
+        let stroke = '#9fbef8';
+
+        if(step >= 5){
+          if(n === d.bigger){
+            fill = '#fee2e2';
+            stroke = '#f87171';
+          } else if(proofCurrent !== null && n === proofCurrent && proofCurrent !== d.bigger){
+            fill = proofCurrent === 10 ? '#fef3c7' : '#dcfce7';
+            stroke = proofCurrent === 10 ? '#facc15' : '#4ade80';
+          } else if(proofCurrent !== null && proofCurrent > 10 && n === 10){
+            fill = '#fef3c7';
+            stroke = '#facc15';
+          }
+        } else {
+          fill = n === d.bigger ? '#fee2e2' : n === 10 ? '#fef3c7' : (step >= 4 && n === d.total) ? '#dcfce7' : '#eff6ff';
+          stroke = n === d.bigger ? '#f87171' : n === 10 ? '#facc15' : (step >= 4 && n === d.total) ? '#4ade80' : '#9fbef8';
+        }
+
         boxes += `
           <rect x="${x-18}" y="134" rx="6" ry="6" width="36" height="28" fill="${fill}" stroke="${stroke}" stroke-width="2.5"></rect>
           <text x="${x}" y="153" text-anchor="middle" font-size="16" font-weight="900" fill="#1f3f72">${n}</text>
@@ -1009,21 +1420,21 @@
 
     function render(){
       const d = getData(currentExample);
+      const viewStep = tryMode ? 0 : currentStep;
       exampleSelect.value = String(currentExample);
+      document.getElementById('tryEquation').textContent = `${d.displayA} + ${d.displayB} =`;
 
-      document.getElementById('equationBox').textContent = equationText(d, currentStep);
-      document.getElementById('stepTag').textContent = `Step ${currentStep + 1}`;
-      document.getElementById('teacherTalk').textContent = stepTalk[currentStep](d);
-      
-      document.querySelectorAll('.stepTab').forEach((tab, i) => {
-        tab.classList.toggle('active', i === currentStep);
-      });
+      document.getElementById('equationBox').textContent = tryMode ? `${d.displayA} + ${d.displayB} = ?` : equationText(d, viewStep);
+      document.getElementById('stepTag').textContent = tryMode ? 'Try First' : `Step ${viewStep + 1}`;
+      document.getElementById('teacherTalk').textContent = tryMode
+        ? 'Pupil: work out the answer first, check it, then watch the making-10 demonstration.'
+        : teacherTalkFor(d, viewStep);
 
       clearMoveOverlay();
-      if(currentStep <= 1){
+      if(viewStep <= 1){
         buildLeftFrame(document.getElementById('leftFrame'), d.bigger, 0);
         buildRightFrame(document.getElementById('rightFrame'), d.smaller, 0, false);
-      }else if(currentStep === 2){
+      }else if(viewStep === 2){
         buildLeftFrame(document.getElementById('leftFrame'), d.bigger, 0);
         buildRightFrame(document.getElementById('rightFrame'), d.smaller, 0, false);
         requestAnimationFrame(() => animateCounterMove(d));
@@ -1033,41 +1444,51 @@
       }
 
       const bondDiagram = document.getElementById('bondDiagram');
-      bondDiagram.innerHTML = makeBondHTML(d, currentStep);
-      bondDiagram.classList.toggle('hidden', currentStep !== 1);
+      bondDiagram.innerHTML = makeBondHTML(d, viewStep);
+      bondDiagram.classList.toggle('hidden', tryMode || viewStep !== 1);
 
       const combineDiagram = document.getElementById('combineDiagram');
-      combineDiagram.innerHTML = makeCombineHTML(d, currentStep);
-      combineDiagram.classList.toggle('hidden', !(currentStep === 3 || currentStep === 4));
+      combineDiagram.innerHTML = makeCombineHTML(d, viewStep);
+      combineDiagram.classList.toggle('hidden', tryMode || !(viewStep === 3 || viewStep === 4));
 
-      document.getElementById('moveNote').textContent =
-        currentStep === 1 ? `Break ${d.smaller} into ${d.toTen} and ${d.remainder}.`
-        : currentStep === 2 ? `Move ${d.toTen} counter${d.toTen === 1 ? '' : 's'} to make 10.`
-        : currentStep === 3 ? `Now ${d.bigger} and ${d.toTen} make 10.`
-        : currentStep === 4 ? `${d.displayA} + ${d.displayB} = 10 + ${d.remainder} = ${d.total}.` : '';
-      document.getElementById('splitBox').innerHTML = makeSplitHTML(d, currentStep);
+      document.getElementById('moveNote').textContent = tryMode ? '' : (
+        viewStep === 0 ? ''
+        : viewStep === 1 ? `Break ${d.smaller} into ${d.toTen} and ${d.remainder}.`
+        : viewStep === 2 ? `Move ${d.toTen} counter${d.toTen === 1 ? '' : 's'} to make 10.`
+        : viewStep === 3 ? `Now ${d.bigger} and ${d.toTen} make 10.`
+        : viewStep === 4 ? `${d.displayA} + ${d.displayB} = 10 + ${d.remainder} = ${d.total}.`
+        : viewStep === 5 ? `Prove it by counting on in ones.`
+        : `Count on by +1, one jump at a time.`
+      );
+      document.getElementById('splitBox').innerHTML = makeSplitHTML(d, viewStep);
       document.getElementById('splitBox').classList.add('hidden');
-      document.getElementById('pathway').innerHTML = makePathHTML(d, currentStep);
+      document.getElementById('pathway').innerHTML = makePathHTML(d, viewStep);
       document.getElementById('pathway').classList.add('hidden');
-      document.getElementById('explainBox').textContent = explainText(d, currentStep);
-      renderLine(d, currentStep);
+      document.getElementById('explainBox').textContent = tryMode
+        ? `Pupil first: solve ${d.displayA} + ${d.displayB}. Then check the answer and watch how to make 10.`
+        : explainText(d, viewStep);
+      renderLine(d, viewStep);
+      updateControlLock();
 
-      [...practiceRow.children].forEach((btn, i) => btn.classList.toggle('active', i === currentExample));
+      updateProgressUI();
     }
 
     document.getElementById('prevBtn').addEventListener('click', () => {
+      if(tryMode) return;
       stopPlay();
-      currentStep = (currentStep + 4) % 5;
+      currentStep = (currentStep + totalStepCount(getData(currentExample)) - 1) % totalStepCount(getData(currentExample));
       render();
     });
 
     document.getElementById('nextBtn').addEventListener('click', () => {
+      if(tryMode) return;
       stopPlay();
-      currentStep = (currentStep + 1) % 5;
+      currentStep = (currentStep + 1) % totalStepCount(getData(currentExample));
       render();
     });
 
     document.getElementById('playBtn').addEventListener('click', () => {
+      if(tryMode) return;
       if(playTimer){
         stopPlay();
         return;
@@ -1076,25 +1497,38 @@
       currentStep = 0;
       render();
       playTimer = setInterval(() => {
+        const maxStep = totalStepCount(getData(currentExample)) - 1;
         currentStep += 1;
-        if(currentStep > 4){
+        if(currentStep > maxStep){
           stopPlay();
-          currentStep = 4;
+          currentStep = maxStep;
         }
         render();
       }, 2300);
     });
 
-    exampleSelect.addEventListener('change', (e) => {
-      currentExample = Number(e.target.value);
-      currentStep = 0;
-      stopPlay();
-      render();
+    checkBtn.addEventListener('click', checkPupilAnswer);
+    showDemoBtn.addEventListener('click', () => {
+      if(!demoReady) return;
+      startGuidedDemo(true);
+    });
+    resetTryBtn.addEventListener('click', resetToPupilTry);
+    if(nextQuestionBtn){
+      nextQuestionBtn.addEventListener('click', goToNextQuestion);
+    }
+    answerInput.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') checkPupilAnswer();
     });
 
+    exampleSelect.addEventListener('change', (e) => {
+      currentExample = Number(e.target.value);
+      resetToPupilTry();
+    });
+
+    startNewSet(true);
     setupPickers();
     fitStage();
-    render();
+    resetToPupilTry();
     window.addEventListener('resize', fitStage);
     window.addEventListener('wheel', handleZoomWheel, { passive: false });
     window.addEventListener('keydown', handleZoomKeys);
