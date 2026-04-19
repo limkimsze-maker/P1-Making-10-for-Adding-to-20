@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Adding by Making 10</title>
+  <style>
+    :root{
+      --stage-w:1600;
+      --stage-h:870;
+      --bg:#eaf4ff;
+      --stage:#f8fbff;
+      --panel:#ffffff;
+      --ink:#173a69;
+      --blue:#2f6fed;
+      --blue-2:#dcebff;
+      --blue-3:#b8d2ff;
+      --green:#20b15a;
+      --green-2:#dff6e8;
+      --orange:#f59e0b;
+      --orange-2:#fff4d8;
+      --red:#ef4444;
+      --yellow:#facc15;
+      --gold:#eab308;
+      --line:#1f2937;
+      --shadow:0 14px 30px rgba(27, 68, 122, .12);
+      --radius:26px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{
+      margin:0;
+      width:100%;
+      min-height:100%;
+      overflow:auto;
+      background:linear-gradient(180deg,#edf6ff 0%, #f7fbff 100%);
+      font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
+      color:var(--ink);
+    }
+
+    .viewport{
+      min-height:100vh;
+      overflow:auto;
+      padding:2px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .stageWrap{
+      position:relative;
+      width:1600px;
+      height:870px;
+      transform-origin:top left;
+      flex:0 0 auto;
+    }
+
+    .stage{
+      width:calc(var(--stage-w) * 1px);
+      height:calc(var(--stage-h) * 1px);
+      background:linear-gradient(180deg,#fafdff 0%, #f3f9ff 100%);
+      border:4px solid #cfe1ff;
+      border-radius:30px;
+      box-shadow:0 20px 60px rgba(27, 68, 122, .14);
+      padding:8px;
+      align-content:stretch;
+      display:grid;
+      grid-template-rows:80px 408px 336px 18px;
+      gap:4px;
+      overflow:hidden;
+      transform-origin:top left;
+    }
+
+    .card{
+      background:var(--panel);
+      border:3px solid var(--blue-3);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .header{
+      padding:10px 14px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 560px;
+      align-items:center;
+      gap:8px;
+      background:linear-gradient(135deg,#fff8ec 0%, #f0f7ff 46%, #eefcff 100%);
+    }
+
+    .titleBlock{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding-left:0;
+      min-width:0;
+    }
+
+    h1{
+      margin:0;
+      font-size:26px;
+      line-height:1;
+      color:#0f4186;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+
+    .subtitle{
+      display:none;
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      width:560px;
+      max-width:none;
+      transform:translateX(-46px);
+    }
+
+    .controls label,
+    .btn,
+    select{
+      font-family:inherit;
+      font-size:11px;
+      font-weight:900;
+      color:var(--ink);
+    }
+
+    .picker{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:#fff;
+      border:3px solid var(--blue-3);
+      border-radius:16px;
+      padding:4px 8px;
+      box-shadow:0 5px 0 rgba(47,111,237,.08);
+    }
+
+    select{
+      border:3px solid #8eb5ff;
+      border-radius:14px;
+      padding:3px 6px;
+      background:#fff;
+      min-width:68px;
+    }
+
+    .btn{
+      border:3px solid #8eb5ff;
+      border-radius:12px;
+      padding:4px 8px;
+      background:#edf5ff;
+      box-shadow:0 5px 0 rgba(47,111,237,.08);
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:active{ transform:translateY(1px); }
+    .btn.play{ background:#fff6ea; border-color:#ffb45f; }
+
+    .topCard{
+      padding:10px 12px 12px;
+      display:grid;
+      grid-template-rows:46px 34px auto;
+      gap:4px;
+      overflow:visible;
+    }
+
+    .equationRow{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:4px;
+      align-items:center;
+    }
+
+    .equationBox{
+      height:100%;
+      border:3px dashed #b9d4ff;
+      border-radius:22px;
+      background:#f8fbff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:19px;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+
+    .stepTag{
+      min-width:62px;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:3px solid #a8c8ff;
+      border-radius:18px;
+      background:#ffffff;
+      font-size:12px;
+      font-weight:900;
+      padding:0 8px;
+    }
+
+    .stepTabs{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:4px;
+    }
+
+    .stepTab{
+      border:3px solid #d5e5ff;
+      border-radius:16px;
+      background:#f8fbff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:9px;
+      font-weight:900;
+      color:#35537f;
+    }
+
+    .stepTab.active{
+      background:#edf5ff;
+      border-color:#7caeff;
+      color:#0f4186;
+      box-shadow:inset 0 -5px 0 rgba(47,111,237,.12);
+    }
+
+    .teacherTalk{
+      border:3px solid #f3d370;
+      border-radius:15px;
+      background:#fffef2;
+      padding:4px 10px;
+      display:flex;
+      align-items:center;
+      font-size:11px;
+      font-weight:800;
+      line-height:1.3;
+    }
+
+    .buildRow{
+      display:grid;
+      grid-template-columns:max-content minmax(700px, 760px) max-content;
+      grid-template-rows:auto;
+      gap:8px 14px;
+      align-items:center;
+      justify-content:center;
+      min-height:0;
+      position:relative;
+      padding:22px 10px 0;
+    }
+
+    .buildRow > .framePanel:first-of-type{
+      grid-column:1;
+      grid-row:1;
+      justify-self:center;
+    }
+
+    .buildRow > .framePanel:last-of-type{
+      grid-column:3;
+      grid-row:1;
+      justify-self:center;
+    }
+
+    .buildRow > .centerPanel{
+      grid-column:2;
+      grid-row:1;
+      justify-self:center;
+      width:100%;
+      min-width:700px;
+    }
+
+    .framePanel{
+      position:relative;
+      z-index:1;
+      border:3px solid #dbe8ff;
+      border-radius:22px;
+      background:linear-gradient(180deg,#ffffff,#f8fbff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      width:auto;
+      max-width:none;
+      min-width:0;
+      overflow:visible;
+      box-sizing:border-box;
+    }
+
+    .frameTitle{
+      display:none;
+    }
+
+    .tenframe{
+      width:320px;
+      aspect-ratio:5 / 2;
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      grid-template-rows:repeat(2, 1fr);
+      background:#fff;
+      border:4px solid #192234;
+      position:relative;
+      justify-self:center;
+      align-self:center;
+    }
+
+    .cell{
+      border:2px solid #394357;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .counter{
+      width:52%;
+      height:52%;
+      border-radius:50%;
+      border:3px solid rgba(0,0,0,.34);
+      box-shadow:inset 0 -6px 0 rgba(0,0,0,.14);
+    }
+
+    .red{ background:var(--red); }
+    .yellow{ background:var(--yellow); }
+    .ghost{ background:rgba(250,204,21,.16); border-style:dashed; border-color:#7b8798; box-shadow:none; }
+
+    .frameCaption{
+      display:none;
+    }
+
+    .centerPanel{
+      position:relative;
+      z-index:3;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      padding:0 2px;
+      margin-top:42px;
+      align-self:center;
+      min-height:0;
+    }
+
+    .moveOverlay{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:4;
+      overflow:visible;
+    }
+
+    .movingCounter{
+      position:absolute;
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:var(--yellow);
+      border:3px solid rgba(0,0,0,.34);
+      box-shadow:inset 0 -6px 0 rgba(0,0,0,.14);
+      transform:translate(-50%, -50%);
+      will-change:left, top;
+    }
+
+    .moveNote{
+      font-size:20px;
+      margin-top:25px;
+      font-weight:900;
+      color:#0f4186;
+      text-align:center;
+      min-height:16px;
+      line-height:1.15;
+      max-width:100%;
+    }
+
+    .splitBox{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      font-size:22px;
+      font-weight:900;
+      color:#0f4186;
+      min-height:30px;
+    }
+
+    .miniNum{
+      min-width:30px;
+      height:30px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      background:#fff;
+      border:3px solid #c8dfff;
+      box-shadow:0 4px 0 rgba(47,111,237,.06);
+    }
+
+    .miniNum.gold{ border-color:#f3bf45; background:#fff8ea; }
+
+    .pathway{
+      font-size:26px;
+      font-weight:900;
+      line-height:1;
+      color:#103b73;
+      text-align:center;
+      min-height:28px;
+    }
+
+    .pathway .ten{ color:#2f6fed; }
+    .fade{ opacity:.16; }
+    .hidden{ visibility:hidden; }
+
+    .bondDiagram{
+      width:360px;
+      max-width:100%;
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .bondDiagram svg{
+      display:block;
+      width:100%;
+      height:auto;
+      overflow:visible;
+    }
+
+    .bondTop{
+      font-size:40px;
+      font-weight:900;
+      fill:#000;
+    }
+
+    .bondBottom{
+      font-size:40px;
+      font-weight:900;
+      fill:#000;
+    }
+
+    .combineDiagram{
+      width:720px;
+      max-width:100%;
+      min-height:340px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .combineDiagram svg{
+      display:block;
+      width:100%;
+      height:auto;
+      overflow:visible;
+    }
+
+    .combineDiagram.hidden,
+    .bondDiagram.hidden{
+      display:none;
+    }
+
+    .bottomCard{
+      padding:8px 12px 8px;
+      display:grid;
+      grid-template-rows:30px 214px 34px 0px 42px;
+      gap:8px;
+    }
+
+    .bottomTitle{
+      font-size:24px;
+      font-weight:900;
+      color:#0f4186;
+      display:flex;
+      align-items:center;
+    }
+
+    .numberLineWrap{
+      border:3px solid #dbe8ff;
+      border-radius:22px;
+      background:linear-gradient(180deg,#ffffff,#f7fbff);
+      padding:26px 8px 6px;
+      display:grid;
+      grid-template-rows:1fr;
+      align-items:center;
+      justify-items:center;
+    }
+
+    .numberLineLabel{
+      display:none;
+    }
+
+    #lineSvg{
+      width:1460px;
+      height:206px;
+      overflow:visible;
+      display:block;
+      transform:translateY(-40px);
+      transform-origin:center top;
+    }
+
+    .legend{
+      display:none !important;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      flex-wrap:wrap;
+    }
+
+    .legendItem{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:2px solid #d7e5ff;
+      background:#fff;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:20px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      display:inline-block;
+    }
+
+    .explainBox{
+      display:none !important;
+      height:0 !important;
+      min-height:0 !important;
+      padding:0 !important;
+      margin:0 !important;
+      border:none !important;
+      background:transparent !important;
+      overflow:hidden !important;
+    }
+
+    .practiceRow{
+      display:none !important;
+      grid-template-columns:repeat(5, 1fr);
+      gap:4px;
+    }
+
+    .practiceBtn{
+      width:100%;
+      height:100%;
+      border:3px solid #b9d4ff;
+      border-radius:14px;
+      background:#f8fbff;
+      font-family:inherit;
+      font-size:18px;
+      font-weight:900;
+      color:var(--ink);
+      cursor:pointer;
+      box-shadow:0 5px 0 rgba(47,111,237,.06);
+    }
+
+    .practiceBtn.active{ background:#edf5ff; border-color:#7caeff; }
+
+    .credit{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      font-weight:800;
+      color:#24456f;
+    }
+
+    .screenHint{
+      position:absolute;
+      right:18px;
+      bottom:10px;
+      font-size:12px;
+      color:#4e6786;
+      opacity:.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="stageWrap" id="stageWrap">
+      <main class="stage" aria-label="Adding by Making 10 teaching slide">
+        <section class="card header">
+          <div class="titleBlock">
+            <h1>Adding by Making 10</h1>
+            <div class="subtitle">Build the numbers, move counters to make a full ten, then use the number line to see the jumps. This follows the teaching flow shown in your examples.</div>
+          </div>
+          <div class="controls">
+            <div class="picker">
+              <label for="exampleSelect">Choose an example:</label>
+              <select id="exampleSelect" aria-label="Choose an example"></select>
+            </div>
+            <button class="btn" id="prevBtn">◀ Previous Step</button>
+            <button class="btn" id="nextBtn">Next Step ▶</button>
+            <button class="btn play" id="playBtn">▶ Play All Steps</button>
+          </div>
+        </section>
+
+        <section class="card topCard">
+          <div class="equationRow">
+            <div class="equationBox" id="equationBox">8 + 3 = ?</div>
+            <div class="stepTag" id="stepTag">Step 1</div>
+          </div>
+
+          <div class="teacherTalk" id="teacherTalk"></div>
+
+          <div class="buildRow">
+            <div class="framePanel">
+              <div class="frameTitle" id="leftTitle">Student A</div>
+              <div class="tenframe" id="leftFrame"></div>
+              <div class="frameCaption" id="leftCaption"></div>
+            </div>
+
+            <div class="centerPanel">
+              <div class="moveNote" id="moveNote"></div>
+              <div class="bondDiagram hidden" id="bondDiagram"></div>
+              <div class="combineDiagram hidden" id="combineDiagram"></div>
+              <div class="splitBox" id="splitBox"></div>
+              <div class="pathway" id="pathway"></div>
+            </div>
+
+            <div class="moveOverlay" id="moveOverlay" aria-hidden="true"></div>
+
+            <div class="framePanel">
+              <div class="frameTitle" id="rightTitle">Student B</div>
+              <div class="tenframe" id="rightFrame"></div>
+              <div class="frameCaption" id="rightCaption"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card bottomCard">
+          <div class="bottomTitle">1 to 20 Number Line</div>
+          <div class="numberLineWrap">
+            <svg id="lineSvg" viewBox="0 0 1500 190" aria-label="1 to 20 number line"></svg>
+          </div>
+
+          <div class="legend">
+            <span class="legendItem"><span class="dot" style="background:#ef4444"></span>Start number</span>
+            <span class="legendItem"><span class="dot" style="background:#eab308"></span>Make 10</span>
+            <span class="legendItem"><span class="dot" style="background:#20b15a"></span>Total</span>
+            <span class="legendItem"><span class="dot" style="background:#2f6fed"></span>Big make-10 jumps</span>
+            <span class="legendItem"><span class="dot" style="background:#f59e0b"></span>Small jumps by ones</span>
+          </div>
+
+          <div class="explainBox" id="explainBox"></div>
+
+          <div class="practiceRow" id="practiceRow"></div>
+        </section>
+
+        <div class="credit">Designed by Lim Kim Sze © 2026</div>
+        <div class="screenHint">Hold Ctrl + scroll to adjust the frame size. Press Ctrl + 0 to reset.</div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const examples = [
+      { key: '8+3', a: 8, b: 3 },
+      { key: '8+5', a: 8, b: 5 },
+      { key: '9+4', a: 9, b: 4 },
+      { key: '7+6', a: 7, b: 6 },
+      { key: '6+7', a: 6, b: 7 }
+    ];
+
+    let currentExample = 0;
+    let currentStep = 0;
+    let playTimer = null;
+    let fitScale = 1;
+    let userZoom = 1;
+
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+    const stepTalk = [
+      (d) => `Build ${d.displayA} and ${d.displayB} on the ten-frames. Tell pupils: “Let us look at the bigger number first.”`,
+      (d) => `Break ${d.smaller} into ${d.toTen} and ${d.remainder}. ${d.toTen} helps to make 10.`,
+      (d) => `Move ${d.toTen} counter${d.toTen === 1 ? '' : 's'} slowly to the left ten-frame to make 10.`,
+      (d) => `Now skip count by ${d.toTen} from ${d.bigger} to 10 on the number line.`,
+      (d) => `Next, skip count by ${d.remainder} more from 10 to ${d.total}. So ${d.displayA} + ${d.displayB} = ${d.total}.`
+    ];
+
+    function getData(index){
+      const ex = examples[index];
+      const bigger = Math.max(ex.a, ex.b);
+      const smaller = Math.min(ex.a, ex.b);
+      const toTen = 10 - bigger;
+      const remainder = smaller - toTen;
+      const total = ex.a + ex.b;
+      return {
+        ...ex,
+        bigger,
+        smaller,
+        toTen,
+        remainder,
+        total,
+        displayA: ex.a,
+        displayB: ex.b,
+        leftTitle: ex.a >= ex.b ? 'Student A' : 'Student B',
+        rightTitle: ex.a >= ex.b ? 'Student B' : 'Student A',
+      };
+    }
+
+    const exampleSelect = document.getElementById('exampleSelect');
+    const practiceRow = document.getElementById('practiceRow');
+
+    function setupPickers(){
+      examples.forEach((ex, i) => {
+        const op = document.createElement('option');
+        op.value = i;
+        op.textContent = `${ex.a} + ${ex.b}`;
+        exampleSelect.appendChild(op);
+
+        const btn = document.createElement('button');
+        btn.className = 'practiceBtn';
+        btn.textContent = `${ex.a} + ${ex.b}`;
+        btn.addEventListener('click', () => {
+          currentExample = i;
+          currentStep = 0;
+          stopPlay();
+          render();
+        });
+        practiceRow.appendChild(btn);
+      });
+    }
+
+    function stopPlay(){
+      if(playTimer){
+        clearInterval(playTimer);
+        playTimer = null;
+      }
+      document.getElementById('playBtn').textContent = '▶ Play All Steps';
+    }
+
+    function applyScale(){
+      const wrap = document.getElementById('stageWrap');
+      const stage = document.querySelector('.stage');
+      const scale = clamp(fitScale * userZoom, 0.35, 2.4);
+      wrap.style.width = `${1600 * scale}px`;
+      wrap.style.height = `${870 * scale}px`;
+      stage.style.transform = `scale(${scale})`;
+    }
+
+    function fitStage(){
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const pad = 8;
+      const sx = (vw - pad) / 1600;
+      const sy = (vh - pad) / 870;
+      fitScale = Math.max(0.50, Math.min(1, sx, sy));
+      applyScale();
+    }
+
+    function handleZoomWheel(e){
+      if(!e.ctrlKey) return;
+      e.preventDefault();
+      const step = e.deltaY < 0 ? 0.08 : -0.08;
+      userZoom = clamp(userZoom + step, 0.75, 2.2);
+      applyScale();
+    }
+
+    function handleZoomKeys(e){
+      if(!e.ctrlKey) return;
+      if(e.key === '0'){
+        e.preventDefault();
+        userZoom = 1;
+        applyScale();
+      }
+    }
+
+    function buildLeftFrame(el, bigger, movedCount){
+      el.innerHTML = '';
+      const cells = Array.from({length: 10}, (_, i) => {
+        if(i < bigger) return 'red';
+        if(i < bigger + movedCount) return 'yellow';
+        return '';
+      });
+      cells.forEach(type => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if(type){
+          const counter = document.createElement('div');
+          counter.className = `counter ${type}`;
+          cell.appendChild(counter);
+        }
+        el.appendChild(cell);
+      });
+    }
+
+    function buildRightFrame(el, smaller, removedCount, showGhosts){
+      el.innerHTML = '';
+      const cells = Array.from({length:10}, () => '');
+      if(showGhosts){
+        for(let i = 0; i < removedCount; i++) cells[i] = 'ghost';
+      }
+      const remaining = smaller - removedCount;
+      const startIndex = showGhosts ? removedCount : 0;
+      for(let i = 0; i < remaining; i++) cells[startIndex + i] = 'yellow';
+      cells.forEach(type => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if(type){
+          const counter = document.createElement('div');
+          counter.className = `counter ${type}`;
+          cell.appendChild(counter);
+        }
+        el.appendChild(cell);
+      });
+    }
+
+    function makeSplitHTML(d, step){
+      return '';
+    }
+
+    function makeBondHTML(d, step){
+      if(step !== 1) return '';
+      return `
+        <svg viewBox="0 0 320 120" aria-label="Number bond showing ${d.smaller} split into ${d.toTen} and ${d.remainder}">
+          <text x="88" y="34" text-anchor="middle" class="bondTop">${d.bigger}</text>
+          <text x="142" y="34" text-anchor="middle" class="bondTop">+</text>
+          <text x="198" y="34" text-anchor="middle" class="bondTop">${d.smaller}</text>
+          <text x="258" y="34" text-anchor="middle" class="bondTop">=</text>
+          <line x1="58" y1="44" x2="276" y2="44" stroke="#000" stroke-width="4"/>
+          <line x1="198" y1="50" x2="166" y2="82" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <line x1="198" y1="50" x2="232" y2="86" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <text x="150" y="114" text-anchor="middle" class="bondBottom">${d.toTen}</text>
+          <text x="242" y="110" text-anchor="middle" class="bondBottom">${d.remainder}</text>
+        </svg>
+      `;
+    }
+
+    function makeCombineHTML(d, step){
+      if(step !== 3 && step !== 4) return '';
+      const showFinalTotal = step === 4;
+      const lineEnd = showFinalTotal ? 392 : 330;
+      return `
+        <svg viewBox="0 0 430 170" aria-label="${d.bigger} and ${d.toTen} make 10, then add ${d.remainder}">
+          <text x="116" y="40" text-anchor="middle" class="bondTop">${d.bigger}</text>
+          <text x="182" y="40" text-anchor="middle" class="bondTop">+</text>
+          <text x="248" y="40" text-anchor="middle" class="bondTop">${d.smaller}</text>
+          <text x="316" y="40" text-anchor="middle" class="bondTop">=</text>
+          ${showFinalTotal ? `<text x="384" y="40" text-anchor="middle" class="bondTop">${d.total}</text>` : ''}
+          <line x1="78" y1="52" x2="${lineEnd}" y2="52" stroke="#000" stroke-width="4"/>
+          <line x1="248" y1="58" x2="198" y2="98" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <line x1="248" y1="58" x2="292" y2="98" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <text x="190" y="128" text-anchor="middle" class="bondBottom">${d.toTen}</text>
+          <text x="290" y="128" text-anchor="middle" class="bondBottom">${d.remainder}</text>
+          <text x="40" y="118" text-anchor="middle" font-size="60" font-weight="900" fill="#4f7bd9">10</text>
+          <ellipse cx="141" cy="84" rx="46" ry="84" fill="none" stroke="#4f7bd9" stroke-width="4" stroke-dasharray="12 8" transform="rotate(-27 156 84)"/>
+        </svg>
+      `;
+    }
+
+    function makePathHTML(d, step){
+      return '';
+    }
+
+    function equationText(d, step){
+      if(step < 4) return `${d.displayA} + ${d.displayB} = ?`;
+      return `${d.displayA} + ${d.displayB} = ${d.total}`;
+    }
+
+    function explainText(d, step){
+      if(step <= 2){
+        return `For ${d.displayA} + ${d.displayB}, look at the bigger number first, so start at ${d.bigger}.`;
+      }
+      if(step === 3){
+        return `Start at ${d.bigger}. Skip count by ${d.toTen} to reach 10.`;
+      }
+      return `Start at ${d.bigger}. Skip count by ${d.toTen} to reach 10, then skip count by ${d.remainder} more to reach ${d.total}. So ${d.displayA} + ${d.displayB} = ${d.total}.`;
+    }
+
+    function getCellsRect(frameEl, indexes){
+      const cells = indexes.map(i => frameEl.children[i]).filter(Boolean);
+      if(!cells.length) return null;
+      const rects = cells.map(cell => cell.getBoundingClientRect());
+      const left = Math.min(...rects.map(r => r.left));
+      const top = Math.min(...rects.map(r => r.top));
+      const right = Math.max(...rects.map(r => r.right));
+      const bottom = Math.max(...rects.map(r => r.bottom));
+      return { left, top, right, bottom, width: right - left, height: bottom - top };
+    }
+
+    function clearMoveOverlay(){
+      const overlay = document.getElementById('moveOverlay');
+      if(overlay) overlay.innerHTML = '';
+    }
+
+    function animateCounterMove(d){
+      // Move only the counters that are actually transferred to make 10.
+
+      const overlay = document.getElementById('moveOverlay');
+      const buildRow = document.querySelector('.buildRow');
+      const leftFrame = document.getElementById('leftFrame');
+      const rightFrame = document.getElementById('rightFrame');
+      if(!overlay || !buildRow || !leftFrame || !rightFrame) return;
+
+      overlay.innerHTML = '';
+      const buildRect = buildRow.getBoundingClientRect();
+      const sourceStart = d.remainder;
+      const sourceIndexes = Array.from({length:d.toTen}, (_, i) => sourceStart + i);
+      const targetIndexes = Array.from({length:d.toTen}, (_, i) => d.bigger + i);
+      const sourceCells = sourceIndexes.map(i => rightFrame.children[i]).filter(Boolean);
+      const targetCells = targetIndexes.map(i => leftFrame.children[i]).filter(Boolean);
+      if(sourceCells.length !== d.toTen || targetCells.length !== d.toTen) return;
+
+      const flightData = targetCells.map((cell, i) => {
+        const s = sourceCells[i].getBoundingClientRect();
+        const t = cell.getBoundingClientRect();
+        return {
+          sx: s.left + s.width / 2 - buildRect.left,
+          sy: s.top + s.height / 2 - buildRect.top,
+          tx: t.left + t.width / 2 - buildRect.left,
+          ty: t.top + t.height / 2 - buildRect.top
+        };
+      });
+
+      // Remove the transferred counters from the right frame immediately so pupils
+      // only see the flying counters, not duplicate counters left behind.
+      buildRightFrame(rightFrame, d.smaller, d.toTen, false);
+
+      flightData.forEach((p, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'movingCounter';
+        dot.style.left = `${p.sx}px`;
+        dot.style.top = `${p.sy}px`;
+        overlay.appendChild(dot);
+        requestAnimationFrame(() => {
+          const delay = i * 180;
+          dot.style.transition = `left 1600ms ${delay}ms cubic-bezier(.22,.9,.25,1), top 1600ms ${delay}ms cubic-bezier(.22,.9,.25,1)`;
+          dot.style.left = `${p.tx}px`;
+          dot.style.top = `${p.ty}px`;
+        });
+      });
+
+      window.setTimeout(() => {
+        if(currentStep !== 2) return;
+        buildLeftFrame(leftFrame, d.bigger, d.toTen);
+        buildRightFrame(rightFrame, d.smaller, d.toTen, false);
+        clearMoveOverlay();
+      }, 2050);
+    }
+
+    function renderLine(d, step){
+      const svg = document.getElementById('lineSvg');
+      const startX = 70;
+      const endX = 1430;
+      const y = 120;
+      const tickCount = 20;
+      const gap = (endX - startX) / (tickCount - 1);
+      const xFor = (n) => startX + (n - 1) * gap;
+
+      function jumpArc(x1, x2, rise, color, label, labelY){
+        const mx = (x1 + x2) / 2;
+        return `
+          <path d="M ${x1} ${y-12} Q ${mx} ${y-rise} ${x2} ${y-12}" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round"/>
+          ${label ? `<text x="${mx}" y="${labelY}" text-anchor="middle" font-size="22" font-weight="900" fill="${color}">${label}</text>` : ''}
+        `;
+      }
+
+      let arcs = '';
+      if(step === 3){
+        arcs += jumpArc(xFor(d.bigger), xFor(10), 64, '#111111', `+${d.toTen}`, 66);
+      }else if(step >= 4){
+        arcs += jumpArc(xFor(d.bigger), xFor(10), 64, '#111111', `+${d.toTen}`, 66);
+        arcs += jumpArc(xFor(10), xFor(d.total), 64, '#111111', `+${d.remainder}`, 66);
+      }
+
+      let markers = `
+        <circle cx="${xFor(d.bigger)}" cy="${y}" r="12" fill="#ef4444" stroke="#912727" stroke-width="2"></circle>
+        <circle cx="${xFor(10)}" cy="${y}" r="12" fill="#eab308" stroke="#9a7408" stroke-width="2"></circle>
+        ${step >= 4 ? `<circle cx="${xFor(d.total)}" cy="${y}" r="12" fill="#20b15a" stroke="#13763b" stroke-width="2"></circle>` : ''}
+      `;
+
+      const startLabel = `<text x="${xFor(d.bigger)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#ef4444">Start</text>`;
+      const tenLabel = `<text x="${xFor(10)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b27700">Make 10</text>`;
+      const totalLabel = step >= 4 ? `<text x="${xFor(d.total)}" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#148545">Total</text>` : '';
+
+      let ticks = '';
+      let boxes = '';
+      for(let n = 1; n <= 20; n++){
+        const x = xFor(n);
+        ticks += `<line x1="${x}" y1="${y-14}" x2="${x}" y2="${y+12}" stroke="#233145" stroke-width="3"></line>`;
+        const fill = n === d.bigger ? '#fee2e2' : n === 10 ? '#fef3c7' : (step >= 4 && n === d.total) ? '#dcfce7' : '#eff6ff';
+        const stroke = n === d.bigger ? '#f87171' : n === 10 ? '#facc15' : (step >= 4 && n === d.total) ? '#4ade80' : '#9fbef8';
+        boxes += `
+          <rect x="${x-18}" y="134" rx="6" ry="6" width="36" height="28" fill="${fill}" stroke="${stroke}" stroke-width="2.5"></rect>
+          <text x="${x}" y="153" text-anchor="middle" font-size="16" font-weight="900" fill="#1f3f72">${n}</text>
+        `;
+      }
+
+      svg.innerHTML = `
+        <line x1="${startX}" y1="${y}" x2="${endX}" y2="${y}" stroke="#1f2937" stroke-width="5"></line>
+        ${ticks}
+        ${arcs}
+        ${startLabel}
+        ${tenLabel}
+        ${totalLabel}
+        ${markers}
+        ${boxes}
+      `;
+    }
+
+    function render(){
+      const d = getData(currentExample);
+      exampleSelect.value = String(currentExample);
+
+      document.getElementById('equationBox').textContent = equationText(d, currentStep);
+      document.getElementById('stepTag').textContent = `Step ${currentStep + 1}`;
+      document.getElementById('teacherTalk').textContent = stepTalk[currentStep](d);
+      
+      document.querySelectorAll('.stepTab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === currentStep);
+      });
+
+      clearMoveOverlay();
+      if(currentStep <= 1){
+        buildLeftFrame(document.getElementById('leftFrame'), d.bigger, 0);
+        buildRightFrame(document.getElementById('rightFrame'), d.smaller, 0, false);
+      }else if(currentStep === 2){
+        buildLeftFrame(document.getElementById('leftFrame'), d.bigger, 0);
+        buildRightFrame(document.getElementById('rightFrame'), d.smaller, 0, false);
+        requestAnimationFrame(() => animateCounterMove(d));
+      }else{
+        buildLeftFrame(document.getElementById('leftFrame'), d.bigger, d.toTen);
+        buildRightFrame(document.getElementById('rightFrame'), d.smaller, d.toTen, false);
+      }
+
+      const bondDiagram = document.getElementById('bondDiagram');
+      bondDiagram.innerHTML = makeBondHTML(d, currentStep);
+      bondDiagram.classList.toggle('hidden', currentStep !== 1);
+
+      const combineDiagram = document.getElementById('combineDiagram');
+      combineDiagram.innerHTML = makeCombineHTML(d, currentStep);
+      combineDiagram.classList.toggle('hidden', !(currentStep === 3 || currentStep === 4));
+
+      document.getElementById('moveNote').textContent =
+        currentStep === 1 ? `Break ${d.smaller} into ${d.toTen} and ${d.remainder}.`
+        : currentStep === 2 ? `Move ${d.toTen} counter${d.toTen === 1 ? '' : 's'} to make 10.`
+        : currentStep === 3 ? `Now ${d.bigger} and ${d.toTen} make 10.`
+        : currentStep === 4 ? `${d.displayA} + ${d.displayB} = 10 + ${d.remainder} = ${d.total}.` : '';
+      document.getElementById('splitBox').innerHTML = makeSplitHTML(d, currentStep);
+      document.getElementById('splitBox').classList.add('hidden');
+      document.getElementById('pathway').innerHTML = makePathHTML(d, currentStep);
+      document.getElementById('pathway').classList.add('hidden');
+      document.getElementById('explainBox').textContent = explainText(d, currentStep);
+      renderLine(d, currentStep);
+
+      [...practiceRow.children].forEach((btn, i) => btn.classList.toggle('active', i === currentExample));
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      stopPlay();
+      currentStep = (currentStep + 4) % 5;
+      render();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      stopPlay();
+      currentStep = (currentStep + 1) % 5;
+      render();
+    });
+
+    document.getElementById('playBtn').addEventListener('click', () => {
+      if(playTimer){
+        stopPlay();
+        return;
+      }
+      document.getElementById('playBtn').textContent = '❚❚ Stop';
+      currentStep = 0;
+      render();
+      playTimer = setInterval(() => {
+        currentStep += 1;
+        if(currentStep > 4){
+          stopPlay();
+          currentStep = 4;
+        }
+        render();
+      }, 2300);
+    });
+
+    exampleSelect.addEventListener('change', (e) => {
+      currentExample = Number(e.target.value);
+      currentStep = 0;
+      stopPlay();
+      render();
+    });
+
+    setupPickers();
+    fitStage();
+    render();
+    window.addEventListener('resize', fitStage);
+    window.addEventListener('wheel', handleZoomWheel, { passive: false });
+    window.addEventListener('keydown', handleZoomKeys);
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize', fitStage);
+    }
+  </script>
+</body>
+</html>
