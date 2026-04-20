@@ -1306,9 +1306,9 @@
       const startX = 70;
       const endX = 1430;
       const y = 120;
-      const tickCount = 20;
+      const tickCount = 21;
       const gap = (endX - startX) / (tickCount - 1);
-      const xFor = (n) => startX + (n - 1) * gap;
+      const xFor = (n) => startX + n * gap;
 
       function jumpArc(x1, x2, rise, color, label, labelY){
         const mx = (x1 + x2) / 2;
@@ -1377,7 +1377,7 @@
       let boxes = '';
       const proofCurrent = step >= 5 ? Math.min(d.bigger + Math.max(0, Math.min(step - 5, d.smaller)), d.total) : null;
 
-      for(let n = 1; n <= 20; n++){
+      for(let n = 0; n <= 20; n++){
         const x = xFor(n);
         ticks += `<line x1="${x}" y1="${y-14}" x2="${x}" y2="${y+12}" stroke="#233145" stroke-width="3"></line>`;
 
